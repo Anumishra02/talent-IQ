@@ -1,33 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
+import './App.css'
+import {Show,
+  SignInButton,
+  SignOutButton,
+  UserButton } from '@clerk/react'
+//how to send the data info from the clerk to the database as they are two different companies ,
+//So there are other providers like ingest so ,
+//clerk will send an event called "webhook" and clerk will send the user info to ingest
+//and ingest will do background job which is a fun and it will connect to mongodb and save info in db
+//chat and vdo messages are provided by stream
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <>  
+     <h1>Welcome to the app</h1>
+     <Show when="signed-out">
+
+      <SignInButton mode="modal">
+        <button>Login</button>
+      </SignInButton>
+     </Show>
+
+     <Show when="signed-in">
+      <SignOutButton/>
+     </Show>
+
+     <UserButton/>
     </>
   )
 }
